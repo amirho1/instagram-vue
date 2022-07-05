@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+
+  span {
+    font-weight: bold;
+    color: var(--blue);
+  }
+}
