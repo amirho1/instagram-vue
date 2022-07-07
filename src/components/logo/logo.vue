@@ -1,7 +1,5 @@
-<script setup>
+<script setup lang="ts">
 import styles from "./logo.module.scss";
-
-console.log(styles);
 </script>
 
 <template>

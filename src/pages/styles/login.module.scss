@@ -1,0 +1,16 @@
+.logo {
+  margin: 9 auto 5em auto;
+  display: block;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.eye {
+  position: absolute !important;
+  right: 1em;
+  top: 0.65em;
+  z-index: 130;
+  cursor: pointer;
+}

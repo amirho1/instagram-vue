@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { ref, watchEffect } from "vue";
 
-const Api = axios.create({ baseURL: (import.meta as any).env.BASE_URL });
+export const Api = axios.create({ baseURL: "http://localhost:3001" });
 
 export default function (
   fetchOptions: AxiosRequestConfig<any>,
@@ -10,8 +10,8 @@ export default function (
   const response = ref<AxiosResponse | null>(null);
   const error = ref<unknown>(null);
 
-  const fetch = async (props: AxiosRequestConfig<any>) => {
-    return Api(props)
+  const fetch = async (props: AxiosRequestConfig<any> = fetchOptions) => {
+    return Api({ ...fetchOptions, ...props })
       .then(res => {
         response.value = res;
         return res;
