@@ -1,0 +1,21 @@
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: block;
+}
+
+.avatarWrapper {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  padding: 1px;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hasStory {
+  border-color: var(--pink);
+}
