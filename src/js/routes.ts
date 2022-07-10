@@ -5,41 +5,36 @@ import PreLogin from "../pages/preLogin.vue";
 import Register from "../pages/register.vue";
 import { Api } from "../hooks/useFetch";
 
-interface RedirectBaseLogeInStatusProps {
-  reject: any;
-  paths: { if?: string; else?: string };
-  router: any;
-}
-
 interface AnyProps {
   [props: string]: any;
 }
 
 export const isLoggedIn = async () => {
-  const response = await Api({ method: "GET", url: "/user/islogin" });
+  const response = await Api({ method: "GET", url: "/users/islogin" });
   return response.status < 400;
 };
 
 interface LoggedInFNI {
-  isLoggedIn: boolean;
   reject: any;
   router: any;
   resolve: any;
 }
 
-const ifLoggedInRedirectHome = ({
-  isLoggedIn,
+const ifLoggedInRedirectHome = async ({
   reject,
   router,
   resolve,
 }: LoggedInFNI) => {
-  if (isLoggedIn) {
-    reject();
-    router.navigate("/");
-    return;
+  try {
+    const logeInStatus = await isLoggedIn();
+    if (logeInStatus) {
+      reject();
+      router.navigate("/");
+      return;
+    }
+  } catch (err) {
+    resolve();
   }
-
-  resolve();
 };
 
 var routes = [
@@ -48,7 +43,6 @@ var routes = [
     component: PreLogin,
     async beforeEnter({ reject, router, resolve }: AnyProps) {
       ifLoggedInRedirectHome({
-        isLoggedIn: await isLoggedIn(),
         reject,
         router,
         resolve,
@@ -64,7 +58,6 @@ var routes = [
     component: Login,
     async beforeEnter({ reject, router, resolve }: AnyProps) {
       ifLoggedInRedirectHome({
-        isLoggedIn: await isLoggedIn(),
         reject,
         router,
         resolve,
@@ -76,7 +69,6 @@ var routes = [
     component: Register,
     async beforeEnter({ reject, router, resolve }: AnyProps) {
       ifLoggedInRedirectHome({
-        isLoggedIn: await isLoggedIn(),
         reject,
         router,
         resolve,

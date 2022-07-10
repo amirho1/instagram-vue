@@ -8,3 +8,8 @@
   padding: 1.5em;
   margin: 2em 1.2em 1em;
 }
+
+.list ul::after,
+.list ul::before {
+  width: 0 !important;
+}

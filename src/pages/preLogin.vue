@@ -12,9 +12,14 @@ const onCreateNewAccountClick = () => {
 };
 
 watchEffect(async () => {
-  if (await isLoggedIn()) {
-    f7.view.main.router.navigate("/");
-  } else {
+  try {
+    const loginStatus = await isLoggedIn();
+    console.log(loginStatus, "here");
+    if (loginStatus) {
+      f7.view.main.router.navigate("/");
+    } else {
+    }
+  } catch (err: any) {
     loading.value = false;
   }
 });
@@ -22,7 +27,11 @@ watchEffect(async () => {
 
 <template>
   <f7-page>
-    <f7-preloader color="blue" :class="styles.loading"></f7-preloader>
+    <f7-preloader
+      v-if="loading"
+      color="blue"
+      :class="styles.loading"
+    ></f7-preloader>
 
     <div v-if="!loading">
       <Logo :class="styles.logo" />
